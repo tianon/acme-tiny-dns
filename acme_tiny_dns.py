@@ -13,7 +13,7 @@ LOGGER = logging.getLogger(__name__)
 LOGGER.addHandler(logging.StreamHandler())
 LOGGER.setLevel(logging.INFO)
 
-def get_crt(account_key, csr, dns_zone, hook, log=LOGGER, CA=DEFAULT_CA, disable_check=False, directory_url=DEFAULT_DIRECTORY_URL, contact=None):
+def get_crt(account_key, csr, hook, log=LOGGER, CA=DEFAULT_CA, disable_check=False, directory_url=DEFAULT_DIRECTORY_URL, contact=None):
     directory, acct_headers, alg, jwk = None, None, None, None # global variables
 
     # helper functions - base64 encode for jose spec
@@ -173,15 +173,14 @@ def main(argv=None):
             account key, so PLEASE READ THROUGH IT! It's only ~200 lines, so it won't take long.
 
             Example Usage:
-            python acme_tiny.py --account-key ./account.key --csr ./domain.csr --domain example.org --hook /opt/update_my_zone > signed_chain.crt
+            python acme_tiny.py --account-key ./account.key --csr ./domain.csr --hook /opt/update_my_zone > signed_chain.crt
 
             Example Crontab Renewal (once per month):
-            0 0 1 * * python /path/to/acme_tiny.py --account-key /path/to/account.key --csr /path/to/domain.csr --domain example.org --hook /opt/update_my_zone > /path/to/signed_chain.crt 2>> /var/log/acme_tiny.log
+            0 0 1 * * python /path/to/acme_tiny.py --account-key /path/to/account.key --csr /path/to/domain.csr --hook /opt/update_my_zone > /path/to/signed_chain.crt 2>> /var/log/acme_tiny.log
             """)
     )
     parser.add_argument("--account-key", required=True, help="path to your Let's Encrypt account private key")
     parser.add_argument("--csr", required=True, help="path to your certificate signing request")
-    parser.add_argument("--domain", required=True, help="the domain name to use for ownership verification")
     parser.add_argument("--quiet", action="store_const", const=logging.ERROR, help="suppress output except for errors")
     parser.add_argument("--disable-check", default=False, action="store_true", help="disable checking if the challenge file is hosted correctly before telling the CA")
     parser.add_argument("--directory-url", default=DEFAULT_DIRECTORY_URL, help="certificate authority directory url, default is Let's Encrypt")
@@ -192,7 +191,7 @@ def main(argv=None):
     
     args = parser.parse_args(argv)
     LOGGER.setLevel(args.quiet or LOGGER.level)
-    signed_crt = get_crt(args.account_key, args.csr, args.domain, args.hook, log=LOGGER, CA=args.ca, disable_check=args.disable_check, directory_url=args.directory_url, contact=args.contact)
+    signed_crt = get_crt(args.account_key, args.csr, args.hook, log=LOGGER, CA=args.ca, disable_check=args.disable_check, directory_url=args.directory_url, contact=args.contact)
     if args.output == sys.stdout:
         sys.stdout.write(signed_crt)
     else:

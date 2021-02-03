@@ -77,7 +77,7 @@ and read your private account key and CSR.
 
 ```
 # Run the script on your server
-python acme_tiny_dns.py --account-key ./account.key --csr "$domain.csr" --domain "${domain}" --hook /path/to/hook/script > ./signed_chain.crt
+python acme_tiny_dns.py --account-key ./account.key --csr "$domain.csr" --hook /path/to/hook/script > ./signed_chain.crt
 ```
 
 ### Step 5: Install the certificate
@@ -96,7 +96,7 @@ for example script).
 Example of a `renew_cert.sh`:
 ```sh
 #!/usr/bin/sh
-python /path/to/acme_tiny_dns.py --account-key /path/to/account.key --csr /path/to/domain.csr --domain "${domain}" --hook /path/to/hook/script > /path/to/signed_chain.crt || exit
+python /path/to/acme_tiny_dns.py --account-key /path/to/account.key --csr /path/to/domain.csr --hook /path/to/hook/script > /path/to/signed_chain.crt || exit
 service nginx reload
 ```
 
@@ -120,7 +120,7 @@ domain="example.org"
 domain_csr="/etc/letsencrypt/${domain}.csr"
 domain_crt="/etc/nginx/ssl/${domain}.crt"
 
-su -s /bin/sh -c "umask 033; python ${acme_bin} --account-key \"${letsencrypt_account_key}\" --csr \"${domain_csr}\" --domain \"${domain}\" --hook \"${hook_bin}\" > \"${domain_crt}\"" "${letsencrypt_user}"
+su -s /bin/sh -c "umask 033; python ${acme_bin} --account-key \"${letsencrypt_account_key}\" --csr \"${domain_csr}\" --hook \"${hook_bin}\" > \"${domain_crt}\"" "${letsencrypt_user}"
 ```
 
 The biggest problem you'll likely come across while setting up and running this

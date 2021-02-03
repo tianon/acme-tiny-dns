@@ -19,7 +19,7 @@ Start with https://github.com/diafygi/acme-tiny#how-to-use-this-script -- we'll 
 
 ```
 # For wildcard domains (only possible via DNS challenge)
-openssl req -new -sha256 -key domain.key -subj "/" -addext "subjectAltName = DNS:yoursite.com, DNS:*.yoursite.com" > domain.csr
+openssl req -new -sha256 -key domain.key -subj "/" -addext "subjectAltName = DNS:*.yoursite.com" > domain.csr
 ```
 
 ### Step 3: Write a hook script that will talk to your DNS server and update the zone

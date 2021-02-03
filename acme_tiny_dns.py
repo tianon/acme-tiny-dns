@@ -144,7 +144,6 @@ def get_crt(account_key, csr, hook, log=LOGGER, CA=DEFAULT_CA, disable_check=Fal
         authorization = _poll_until_not(auth_url, ["pending"], "Error checking challenge status for {0}".format(domain))
         if authorization['status'] != "valid":
             raise ValueError("Challenge did not pass for {0}: {1}".format(domain, authorization))
-        os.remove(wellknown_path)
         log.info("{0} verified!".format(domain))
 
         log.info("Running {0} {1} {2}".format(hook, 'cleanup', domain))

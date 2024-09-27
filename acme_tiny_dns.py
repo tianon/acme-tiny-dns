@@ -98,7 +98,7 @@ def get_crt(account_key, csr, hook, log=LOGGER, CA=DEFAULT_CA, disable_check=Fal
         for san in subject_alt_names.group(1).split(", "):
             if san.startswith("DNS:"):
                 domains.add(san[4:])
-    log.info("Found domains: {0}".format(", ".join(domains)))
+    log.info(u"Found domains: {0}".format(", ".join(domains)))
 
     # get the ACME directory of urls
     log.info("Getting directory...")

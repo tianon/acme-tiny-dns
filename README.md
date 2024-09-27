@@ -4,7 +4,7 @@ This is a fork of [conchyliculture/acme-tiny-dns](https://github.com/conchylicul
 
 > Thanks a lot to [diafygi](https://github.com/diafygi) to let us escape from all the other ACME client craziness.
 
-See https://github.com/diafygi/acme-tiny/compare/master...tianon:tianon (specifically, `acme_tiny.py → acme_tiny_dns.py`) for the full delta from the original.
+See https://github.com/diafygi/acme-tiny/compare/master..tianon:tianon (specifically, `acme_tiny.py → acme_tiny_dns.py`) for the full delta from the original.
 
 Start with https://github.com/diafygi/acme-tiny#how-to-use-this-script -- we'll only document the delta.
 
